@@ -1,4 +1,5 @@
 **AWS Cloud Security Audit & Remediation**
+
 **1. Project Overview:**
 This projectperforms an end-toend security audit in AWS environment. It simulates the lifecycle of a professional security assessment, focusing on identifying misconfigurations, validating vulnerabilities through exploitation, and implementing industry-standard remediation strategies.
 
@@ -10,6 +11,7 @@ This projectperforms an end-toend security audit in AWS environment. It simulate
 * Validation: Final verification of hardened security posture.
 
 **3. Phase-by-Phase Report**
+
 **Phase 1: Reconnaissance & Discovery**
 Objective: Identify public-facing assets and excessive identity permissions.
 Tool: AWS IAM Access Analyzer.
