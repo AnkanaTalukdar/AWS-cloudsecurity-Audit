@@ -17,26 +17,31 @@ This projectperforms an end-toend security audit in AWS environment. It simulate
 * Objective: Identify public-facing assets and excessive identity permissions.
 * Tool: AWS IAM Access Analyzer.
 * Finding: Identified an S3 bucket (testdata-audit-project13) with public access permissions enabled.
+* Evidence: fig1, fig2, fig3
 
 **Phase 2: Vulnerability Exploitation (PoC)**
 * Objective: Validate that the misconfiguration is exploitable.
 * Action: Attempted unauthorized data exfiltration of passwords.txt via unauthenticated browser request.
 * Result: Successfully accessed sensitive data, confirming a critical confidentiality breach.
+* Evidence: fig4, fig5
 
 **Phase 3: Impact Assessment (Privilege Escalation)**
 * Objective: Audit identity permissions to assess the "blast radius."
 * Finding: The service user project13-audit was assigned AdministratorAccess, violating the Principle of Least Privilege.
+* Evidence: fig6, fig7, fig8, fig9
 
 **Phase 4: Remediation (Defense-in-Depth)**
 * Objective: Harden the environment to prevent future breaches.
 * S3 Hardening: Enabled "Block all public access" settings at the bucket level.
 * IAM Hardening: Implemented a scoped Inline Policy following the Principle of Least Privilege.
 * Policy Definition: Granted ListBucket and GetObject actions only for the specific project resource.
+* Evidence: fig9, fig11, fig12
 
 **Phase 5: Final Validation**
 * Objective: Confirm the vulnerability is successfully mitigated.
 * Action: Re-attempted unauthorized data access.
 * Result: System returned a 403 Access Denied error. Access Analyzer confirms zero active findings.
+* Evidence: fig10, fig13
 
 **4. Conclusion:**
 
