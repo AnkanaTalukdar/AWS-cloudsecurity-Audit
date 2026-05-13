@@ -1,6 +1,7 @@
 **AWS Cloud Security Audit & Remediation**
 
 **1. Project Overview:**
+
 This projectperforms an end-toend security audit in AWS environment. It simulates the lifecycle of a professional security assessment, focusing on identifying misconfigurations, validating vulnerabilities through exploitation, and implementing industry-standard remediation strategies.
 
 **2. Methodology: Pentesting Execution Standard (PTES)**
