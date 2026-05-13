@@ -13,10 +13,6 @@ authentication.
 *	Automated Finding: The AWS IAM Access Analyzer flagged the bucket testdata-audit-l 
 as having "Public Read" access.
 
-Evidence: Public Exposure & Finding:
-Figure 1: Object overview for 'passwords.txt' showing the live public URL.
-Figure 2: Active finding in Access Analyzer highlighting a bucket with public read access.
-
 2. IAM Privilege Escalation:
 *	Vulnerability: A test user (ankana-audit) was assigned the AdministratorAccess managed 
 policy directly.
@@ -25,21 +21,12 @@ the entire AWS account to a non-administrative user.
 *	Identity Risk: The IAM Dashboard and user setup confirmed that over-privileged roles 
 were created without proper scoping.
 
-Evidence: Over-Privileged User Creation:
-Figure 3: Directly attaching the 'AdministratorAccess' policy during user creation.
-Figure 4: Final review of the 'ankana-audit' user possessing full administrative rights.
-
 Phase 2: Remediation (The Fix):
 1. Securing S3 Storage
 *	Action: Enabled "Block all public access" at the bucket level.
 *	Action: Deleted the permissive JSON bucket policy.
 *	Result: The public URL now returns a 403 Forbidden error, and the Access Analyzer 
 finding is resolved.
-
-Evidence: Closing the Leak:
-Figure 5: Activating 'Block all public access' settings to secure the bucket.
-Figure 6: Browser confirmation showing 'AccessDenied' when attempting to reach the file 
-publicly.
 
 2. Implementing Least Privilege:
 *	Action: Removed the AdministratorAccess policy from the user.
@@ -73,9 +60,6 @@ Tools Used:
 *	IAM Management Console: For auditing user security hygiene.
 *	S3 Bucket Policies: For resource-based access control.
 *	GitHub: For project documentation and audit reporting.
-
-Audit Environment Construction:
-Figure 7: Final repository layout for the 'AWS-cloudsecurity-Audit' project.
 
 Conclusion:
 By identifying these vulnerabilities and applying remediation, the attack surface of the AWS 
