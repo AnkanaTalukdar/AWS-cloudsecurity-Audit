@@ -1,68 +1,39 @@
-AWS Cloud Security Audit & Remediation
-Project Overview:
-This project demonstrates a professional end-to-end security audit of an Amazon Web Services 
-(AWS) environment. The goal was to identify critical misconfigurations in cloud storage (S3) 
-and Identity and Access Management (IAM), document the findings using automated tools, and 
-implement industry-standard remediation.
+**AWS Cloud Security Audit & Remediation**
+**1. Project Overview:**
+This projectperforms an end-toend security audit in AWS environment. It simulates the lifecycle of a professional security assessment, focusing on identifying misconfigurations, validating vulnerabilities through exploitation, and implementing industry-standard remediation strategies.
 
-Phase 1: Discovery & Vulnerability Identification:
-1. S3 Storage Misconfiguration:
-*	Vulnerability: An S3 bucket was configured with public read access.
-*	Evidence: Sensitive data (passwords.txt) was accessible via a public URL without 
-authentication.
-*	Automated Finding: The AWS IAM Access Analyzer flagged the bucket testdata-audit-l 
-as having "Public Read" access.
+**2. Methodology: Pentesting Execution Standard (PTES)**
+* Discovery: Automated reconnaissance using AWS IAM Access Analyzer.
+* Vulnerability Validation: Proof of Concept (PoC) through unauthorized data access.
+* Privilege Audit: Analyzing IAM roles for adherence to the Principle of Least Privilege (PoLP).
+* Remediation: Implementation of cloud-native security guardrails and resource-level IAM policies.
+* Validation: Final verification of hardened security posture.
 
-2. IAM Privilege Escalation:
-*	Vulnerability: A test user (ankana-audit) was assigned the AdministratorAccess managed 
-policy directly.
-*	Risk: This violates the Principle of Least Privilege (PoLP), granting full control over 
-the entire AWS account to a non-administrative user.
-*	Identity Risk: The IAM Dashboard and user setup confirmed that over-privileged roles 
-were created without proper scoping.
+**3. Phase-by-Phase Report**
+**Phase 1: Reconnaissance & Discovery**
+Objective: Identify public-facing assets and excessive identity permissions.
+Tool: AWS IAM Access Analyzer.
+Finding: Identified an S3 bucket (testdata-audit-project13) with public access permissions enabled.
 
-Phase 2: Remediation (The Fix):
-1. Securing S3 Storage
-*	Action: Enabled "Block all public access" at the bucket level.
-*	Action: Deleted the permissive JSON bucket policy.
-*	Result: The public URL now returns a 403 Forbidden error, and the Access Analyzer 
-finding is resolved.
+**Phase 2: Vulnerability Exploitation (PoC)**
+Objective: Validate that the misconfiguration is exploitable.
+Action: Attempted unauthorized data exfiltration of passwords.txt via unauthenticated browser request.
+Result: Successfully accessed sensitive data, confirming a critical confidentiality breach.
 
-2. Implementing Least Privilege:
-*	Action: Removed the AdministratorAccess policy from the user.
-*	Action: Created and attached a Custom Inline Policy that restricts access only to the 
-specific audit bucket.
+**Phase 3: Impact Assessment (Privilege Escalation)**
+Objective: Audit identity permissions to assess the "blast radius."
+Finding: The service user project13-audit was assigned AdministratorAccess, violating the Principle of Least Privilege.
 
-Secure Policy Implemented:
-JSON
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::962765735107:user/ankana-audit"
-            },
-            "Action": [
-                "s3:ListBucket",
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::testdata-audit-project19-ankana",
-                "arn:aws:s3:::testdata-audit-project19-ankana/*"
-            ]
-        }
-    ]
-}
+**Phase 4: Remediation (Defense-in-Depth)**
+Objective: Harden the environment to prevent future breaches.
+S3 Hardening: Enabled "Block all public access" settings at the bucket level.
+IAM Hardening: Implemented a scoped Inline Policy following the Principle of Least Privilege.
+Policy Definition: Granted ListBucket and GetObject actions only for the specific project resource.
 
-Tools Used:
-*	AWS IAM Access Analyzer: For automated resource scanning.
-*	IAM Management Console: For auditing user security hygiene.
-*	S3 Bucket Policies: For resource-based access control.
-*	GitHub: For project documentation and audit reporting.
+**Phase 5: Final Validation**
+Objective: Confirm the vulnerability is successfully mitigated.
+Action: Re-attempted unauthorized data access.
+Result: System returned a 403 Access Denied error. Access Analyzer confirms zero active findings.
 
-Conclusion:
-By identifying these vulnerabilities and applying remediation, the attack surface of the AWS 
-account was significantly reduced. This project highlights the importance of continuous 
-monitoring using tools like Access Analyzer and the strict application of identity-based security 
-controls.
+**4. Conclusion:**
+This audit demonstrates the critical importance of continuous cloud monitoring and the application of the Principle of Least Privilege. By transitioning from a permissive configuration to a hardened state, the attack surface was successfully minimized, ensuring data integrity and confidentiality.
